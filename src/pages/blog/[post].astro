@@ -1,0 +1,47 @@
+---
+import {
+    sanityPortableText,
+    getFirstBlogPost,
+    urlForImage,
+} from "../../utils/utils";
+import { PortableText } from "@portabletext/react";
+import CodeBlock, { Test } from "../../components/CodeBlock";
+
+export async function getStaticPaths() {
+    const posts = await getFirstBlogPost();
+    const params = posts.map((p: any) => {
+        return {
+            params: { post: p.slug.current },
+            props: { posts: p },
+        };
+    });
+
+    return params;
+}
+
+export const prerender = true;
+
+const { post } = Astro.params;
+const { posts } = Astro.props;
+
+const myPortableTextComponents = {
+    types: {
+        myCodeField: ({ value }: any) => {
+            // return <Test></Test>;
+            // return `<p>hola</p>`;
+            // return <CodeBlock node={value}></CodeBlock>;
+        },
+    },
+};
+---
+
+<!-- <div>{post}</div> --><!-- <div>{JSO.stringify(posts)}</div> --><!-- <Fragment set:html={sanityPortableText(posts.body)} /> --><!-- <div>{JSON.stringify(page)}</div> -->
+<PortableText
+    value={posts.body}
+    components={{
+        types: {
+            myCodeField: (e: any) => `<p>${e}</p>`,
+        },
+    }}
+    onMissingComponent={false}
+/>
