@@ -12,7 +12,7 @@ export function urlForImage(src: string) {
     return imageBuilder.image(src);
 }
 
-export async function getFirstBlogPost() {
+export async function getAllBlogPost() {
     const query = groq`*[_type == "post"]`;
     const firstPost = await useSanityClient().fetch(query);
     return firstPost;

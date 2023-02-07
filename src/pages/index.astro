@@ -2,47 +2,14 @@
 // Component Imports
 import Button from "../components/Button.astro";
 import Card from "../components/Card";
-import {
-    useSanityClient,
-    groq,
-    createImageBuilder,
-    portableTextToHtml,
-} from "astro-sanity";
+import MiniBlog from "../components/MiniBlog.astro";
+import Navigation from "../components/Navigation.astro";
+import Hero from "../components/Hero.astro";
+import Footer from "../components/Footer.astro";
+import Pagination from "../components/Pagination.astro";
+import { getAllBlogPost } from "../utils/utils";
 
-export const imageBuilder = createImageBuilder(useSanityClient());
-
-export function urlForImage(src: string) {
-    return imageBuilder.image(src);
-}
-
-async function getFirstBlogPost() {
-    const query = groq`*[_type == "post"]`;
-    const firstPost = await useSanityClient().fetch(query);
-    return firstPost;
-}
-
-let data = await getFirstBlogPost();
-
-export const prerender = true;
-
-export function sanityPortableText(portabletext: any) {
-    return portableTextToHtml(portabletext, {
-        types: {
-            image: ({ value }: any) =>
-                `<img src=${urlForImage(value).url().toString()} />`,
-        },
-        block: {
-            h2: ({ value, children }: any) => {
-                return `<h2 style="color:red;">${children}</h2>`;
-            },
-        },
-    });
-}
-
-// console.log(data[0].body);
-
-// Full Astro Component Syntax:
-// https://docs.astro.build/core-concepts/astro-components/
+const posts = await getAllBlogPost();
 ---
 
 <html lang="en">
@@ -55,308 +22,31 @@ export function sanityPortableText(portabletext: any) {
     </head>
 
     <body>
-        <nav
-            class="w-full flex justify-between border-b-[1px] pt-3 pb-3 select-none"
-        >
-            <div class="ml-4 mr-4">Icon</div>
-            <div class="flex">
-                <li class="list-none mx-2 lg:mx-4 hover:cursor-pointer">
-                    Home
-                </li>
-                <li class="list-none mx-2 lg:mx-4 hover:cursor-pointer">
-                    Projects
-                </li>
-                <li class="list-none mx-2 lg:mx-4 hover:cursor-pointer">
-                    Contact
-                </li>
-            </div>
-        </nav>
-        <section class="text-center py-20">
-            <h1 class="text-5xl max-w-[90%] md:max-w-[60%] m-auto">
-                Welcome to my Blog!
-            </h1>
-            <p class="mt-6 text-lg max-w-[90%] md:max-w-[60%] m-auto">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Temporibus, accusamus. Iure magnam inventore natus saepe velit
-                minus modi, quae odit quam, qui voluptatibus obcaecati? Ipsa
-                iure repudiandae sed ab iste.
-            </p>
-            <div class="mt-6 flex place-content-center place-items-center">
-                <button class="mx-1 px-6 py-2 bg-blue-800 text-white rounded-lg"
-                    >Join Us!</button
-                >
-                <button
-                    class="mx-1 px-6 py-2 bg-white border-blue-800 border text-blue-800 rounded-lg"
-                    >Browse</button
-                >
-            </div>
-        </section>
+        <Navigation />
+        <Hero />
         <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
             <div class="container px-5 py-24 mx-auto">
                 <div class="-my-8 divide-y-2 divide-gray-800">
-                    <div class="py-8 flex flex-wrap md:flex-nowrap">
-                        <div
-                            class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col"
-                        >
-                            <span class="font-semibold title-font text-white"
-                                >CATEGORY</span
-                            >
-                            <span class="mt-1 text-gray-500 text-sm"
-                                >12 Jun 2019</span
-                            >
-                        </div>
-                        <div class="md:flex-grow">
-                            <h2
-                                class="text-2xl font-medium text-white title-font mb-2"
-                            >
-                                Bitters hashtag waistcoat fashion axe chia
-                                unicorn
-                            </h2>
-                            <p class="leading-relaxed">
-                                Glossier echo park pug, church-key sartorial
-                                biodiesel vexillologist pop-up snackwave ramps
-                                cornhole. Marfa 3 wolf moon party messenger bag
-                                selfies, poke vaporware kombucha lumbersexual
-                                pork belly polaroid hoodie portland craft beer.
-                            </p>
-                            <a
-                                class="text-indigo-400 inline-flex items-center mt-4"
-                                >Learn More
-                                <svg
-                                    class="w-4 h-4 ml-2"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    fill="none"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <path d="M5 12h14"></path>
-                                    <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div
-                        class="py-8 flex border-t-2 border-gray-800 flex-wrap md:flex-nowrap"
-                    >
-                        <div
-                            class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col"
-                        >
-                            <span class="font-semibold title-font text-white"
-                                >CATEGORY</span
-                            >
-                            <span class="mt-1 text-gray-500 text-sm"
-                                >12 Jun 2019</span
-                            >
-                        </div>
-                        <div class="md:flex-grow">
-                            <h2
-                                class="text-2xl font-medium text-white title-font mb-2"
-                            >
-                                Meditation bushwick direct trade taxidermy
-                                shaman
-                            </h2>
-                            <p class="leading-relaxed">
-                                Glossier echo park pug, church-key sartorial
-                                biodiesel vexillologist pop-up snackwave ramps
-                                cornhole. Marfa 3 wolf moon party messenger bag
-                                selfies, poke vaporware kombucha lumbersexual
-                                pork belly polaroid hoodie portland craft beer.
-                            </p>
-                            <a
-                                class="text-indigo-400 inline-flex items-center mt-4"
-                                >Learn More
-                                <svg
-                                    class="w-4 h-4 ml-2"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    fill="none"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <path d="M5 12h14"></path>
-                                    <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div
-                        class="py-8 flex border-t-2 border-gray-800 flex-wrap md:flex-nowrap"
-                    >
-                        <div
-                            class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col"
-                        >
-                            <span class="font-semibold title-font text-white"
-                                >CATEGORY</span
-                            >
-                            <span class="mt-1 text-gray-500 text-sm"
-                                >12 Jun 2019</span
-                            >
-                        </div>
-                        <div class="md:flex-grow">
-                            <h2
-                                class="text-2xl font-medium text-white title-font mb-2"
-                            >
-                                Woke master cleanse drinking vinegar salvia
-                            </h2>
-                            <p class="leading-relaxed">
-                                Glossier echo park pug, church-key sartorial
-                                biodiesel vexillologist pop-up snackwave ramps
-                                cornhole. Marfa 3 wolf moon party messenger bag
-                                selfies, poke vaporware kombucha lumbersexual
-                                pork belly polaroid hoodie portland craft beer.
-                            </p>
-                            <a
-                                class="text-indigo-400 inline-flex items-center mt-4"
-                                >Learn More
-                                <svg
-                                    class="w-4 h-4 ml-2"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    fill="none"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <path d="M5 12h14"></path>
-                                    <path d="M12 5l7 7-7 7"></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="flex w-full place-content-center place-items-center pt-5">
-                        <a
-                            href="#"
-                            class="inline-flex items-center px-4 py-2 mr-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >
-                            <svg
-                                aria-hidden="true"
-                                class="w-5 h-5 mr-2"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                                ><path
-                                    fill-rule="evenodd"
-                                    d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                                    clip-rule="evenodd"></path></svg
-                            >
-                            Previous
-                        </a>
-                        <a
-                            href="#"
-                            class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                        >
-                            Next
-                            <svg
-                                aria-hidden="true"
-                                class="w-5 h-5 ml-2"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                                ><path
-                                    fill-rule="evenodd"
-                                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                    clip-rule="evenodd"></path></svg
-                            >
-                        </a>
-                    </div>
+                    {
+                        posts.map((post: any) => {
+                            return (
+                                <MiniBlog
+                                    title={post.title}
+                                    date={new Date(
+                                        post._createdAt
+                                    ).toDateString()}
+                                    description={post.description}
+                                    category={post.categories[0]}
+                                    trending={post.trending}
+                                    slug={post.slug.current}
+                                />
+                            );
+                        })
+                    }
+                    <Pagination />
                 </div>
             </div>
         </section>
-        <footer class="text-gray-600 body-font">
-            <div
-                class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col"
-            >
-                <a
-                    class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"
-                >
-                    <div
-                        class="w-10 h-10 rounded-full bg-blue-300 text-white text-3xl text-center grid place-items-center"
-                    >
-                        W
-                    </div>
-                    <span class="ml-3 text-xl">Willow</span>
-                </a>
-                <p
-                    class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4"
-                >
-                    © 2023 All rights reserved
-                </p>
-                <span
-                    class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
-                >
-                    <a class="text-gray-500">
-                        <svg
-                            fill="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            class="w-5 h-5"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
-                            ></path>
-                        </svg>
-                    </a>
-                    <a class="ml-3 text-gray-500">
-                        <svg
-                            fill="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            class="w-5 h-5"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
-                            ></path>
-                        </svg>
-                    </a>
-                    <a class="ml-3 text-gray-500">
-                        <svg
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            class="w-5 h-5"
-                            viewBox="0 0 24 24"
-                        >
-                            <rect
-                                width="20"
-                                height="20"
-                                x="2"
-                                y="2"
-                                rx="5"
-                                ry="5"></rect>
-                            <path
-                                d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"
-                            ></path>
-                        </svg>
-                    </a>
-                    <a class="ml-3 text-gray-500">
-                        <svg
-                            fill="currentColor"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="0"
-                            class="w-5 h-5"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                stroke="none"
-                                d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
-                            ></path>
-                            <circle cx="4" cy="4" r="2" stroke="none"></circle>
-                        </svg>
-                    </a>
-                </span>
-            </div>
-        </footer>
+        <Footer />
     </body>
 </html>
