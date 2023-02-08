@@ -6,6 +6,9 @@ import {
 } from "../../utils/utils";
 import { PortableText } from "@portabletext/react";
 import CodeBlock, { Test } from "../../components/CodeBlock";
+import Navigation from "../../components/Blog/Navigation.astro";
+import Content from "../../components/Blog/Content.astro";
+import Footer from "../../components/Blog/Footer.astro";
 
 export async function getStaticPaths() {
     const posts = await getAllBlogPost();
@@ -23,16 +26,10 @@ export const prerender = true;
 
 const { post } = Astro.params;
 const { posts } = Astro.props;
-
-const myPortableTextComponents = {
-    types: {
-        myCodeField: ({ value }: any) => {
-            // return <Test></Test>;
-            // return `<p>hola</p>`;
-            // return <CodeBlock node={value}></CodeBlock>;
-        },
-    },
-};
 ---
 
-<!-- <div>{post}</div> --><!-- <div>{JSO.stringify(posts)}</div> --><!-- <Fragment set:html={sanityPortableText(posts.body)} /> --><!-- <div>{JSON.stringify(page)}</div> -->
+<div class="max-w-3xl m-auto p-5">
+    <Navigation />
+    <Content blog={posts} />
+    <Footer />
+</div>
