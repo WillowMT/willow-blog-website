@@ -31,7 +31,6 @@ const posts = await getAllBlogPost();
                         posts.map((post: any) => {
                             return (
                                 <MiniBlog
-                                    client:load
                                     title={post.title}
                                     date={new Date(
                                         post._createdAt
@@ -48,6 +47,6 @@ const posts = await getAllBlogPost();
                 </div>
             </div>
         </section>
-        <Footer client:visible />
+        <Footer />
     </body>
 </html>
