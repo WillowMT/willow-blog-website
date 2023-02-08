@@ -4,7 +4,15 @@ const { category, date, title, description, trending, slug } = Astro.props;
 
 <div class="py-8 flex flex-wrap md:flex-nowrap">
     <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-        <span class="font-semibold title-font text-white">{category}</span>
+        <span class="font-semibold title-font text-white"
+            >{
+                category.map((c: any) => (
+                    <span class="mr-2 bg-slate-500 px-2 py-1 rounded-lg font-mono">
+                        {c}
+                    </span>
+                ))
+            }</span
+        >
         <span class="mt-1 text-gray-500 text-sm">{date}</span>
     </div>
     <div class="md:flex-grow">
@@ -38,7 +46,9 @@ const { category, date, title, description, trending, slug } = Astro.props;
         <p class="leading-relaxed">
             {description}
         </p>
-        <a href={`/blog/${slug}`} class="text-indigo-400 inline-flex items-center mt-4 cursor-pointer"
+        <a
+            href={`/blog/${slug}`}
+            class="text-indigo-400 inline-flex items-center mt-4 cursor-pointer"
             >Learn More
             <svg
                 class="w-4 h-4 ml-2"

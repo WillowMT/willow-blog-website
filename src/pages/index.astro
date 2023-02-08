@@ -24,7 +24,7 @@ const posts = await getAllBlogPost();
     <body>
         <Navigation />
         <Hero />
-        <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
+        <section class="text-gray-400 bg-[#000045] body-font overflow-hidden">
             <div class="container px-5 py-24 mx-auto">
                 <div class="-my-8 divide-y-2 divide-gray-800">
                     {
@@ -36,7 +36,7 @@ const posts = await getAllBlogPost();
                                         post._createdAt
                                     ).toDateString()}
                                     description={post.description}
-                                    category={post.categories[0]}
+                                    category={post.categories}
                                     trending={post.trending}
                                     slug={post.slug.current}
                                 />
