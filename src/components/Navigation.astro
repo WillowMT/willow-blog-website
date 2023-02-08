@@ -1,4 +1,5 @@
 ---
+const { home } = Astro.props;
 ---
 
 <nav class="w-full flex justify-between pt-3 pb-3 select-none text-white z-20">
@@ -24,7 +25,7 @@
         <li
             class="list-none mx-2 lg:mx-4 hover:cursor-pointer bg-blue-300 px-3 py-1 rounded-full border-[1px] border-white"
         >
-            Projects
+            {home ? <a href="/">Home</a> : <a href="/projects">Projects</a>}
         </li>
         <li
             class="list-none mx-2 lg:mx-4 hover:cursor-pointer bg-blue-300 px-3 py-1 rounded-full border-[1px] border-white"
