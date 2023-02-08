@@ -1,0 +1,31 @@
+---
+export const prerender = true;
+import illustration from "../assets/7.svg";
+---
+
+<section>
+    <div class="text-center content">
+        <h1 class="text-center text-6xl">Cannot find your page!</h1>
+        <p class="text-center mt-4">Please come back in a later while...</p>
+        <button
+            onclick="history.back()"
+            class="m-auto px-5 py-2 bg-blue-800 rounded-lg mt-4 text-white"
+            >Go Back</button
+        >
+    </div>
+    <div><img src={illustration} alt="" /></div>
+</section>
+
+<style>
+    section {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        min-height: 100vh;
+        place-content: center;
+        place-items: center;
+    }
+    div {
+        flex: 1 1 500px;
+    }
+</style>
