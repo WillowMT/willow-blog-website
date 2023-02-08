@@ -4,8 +4,6 @@ import {
     getAllBlogPost,
     urlForImage,
 } from "../../utils/utils";
-import { PortableText } from "@portabletext/react";
-import CodeBlock, { Test } from "../../components/CodeBlock";
 import Navigation from "../../components/Blog/Navigation.astro";
 import Content from "../../components/Blog/Content.astro";
 import Footer from "../../components/Blog/Footer.astro";
@@ -26,13 +24,16 @@ export const prerender = true;
 
 const { post } = Astro.params;
 const { posts } = Astro.props;
+import "../../style/global.css";
 ---
 
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{posts.title}</title>
+    <link rel="stylesheet" href="/github-dark.min.css" />
 </head>
 <body>
     <div class="max-w-3xl m-auto p-5">
@@ -40,4 +41,8 @@ const { posts } = Astro.props;
         <Content blog={posts} />
         <Footer />
     </div>
+    <script src="/highlight.min.js" is:inline></script>
+    <script>
+        hljs.highlightAll();
+    </script>
 </body>

@@ -1,16 +1,10 @@
-// import { PortableText } from "@portabletext/react";
-import SyntaxHighlighter from "react-syntax-highlighter";
+import hljs from "highlight.js";
+import { useEffect } from "react";
 
-export default function CodeBlock({ node }: any) {
-    if (!node || !node.code) return null;
-    const { language, code } = node;
+export default function Code() {
+    // console.log(hljs.highlightAuto('print("hello")').value);
     return (
-        <SyntaxHighlighter language={language || "text"}>
-            {code}
-        </SyntaxHighlighter>
+        <>
+        </>
     );
-}
-
-export function Test({name}:{name:string}) {
-    return <p>test, {name}</p>;
 }

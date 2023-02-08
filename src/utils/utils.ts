@@ -4,10 +4,7 @@ import {
     createImageBuilder,
     portableTextToHtml,
 } from "astro-sanity";
-import SyntaxHighlighter from "react-syntax-highlighter";
-
 export const imageBuilder = createImageBuilder(useSanityClient());
-
 export function urlForImage(src: string) {
     return imageBuilder.image(src);
 }
@@ -23,9 +20,8 @@ export function sanityPortableText(portabletext: any) {
         types: {
             image: ({ value }: any) =>
                 `<img src=${urlForImage(value).url().toString()} />`,
-            myCodeField: ({ value }: any) => {
-                // console.log(e);
-                return `<code>${JSON.stringify(value)}</code>`;
+            code: ({ value }: any) => {
+                return `<pre><code class="rounded-lg language-${value.language}">${value.code}</code></pre>`;
             },
         },
         block: {
@@ -33,7 +29,7 @@ export function sanityPortableText(portabletext: any) {
                 return `<h2 class="text-4xl">${children}</h2>`;
             },
             code: ({ value, children }: any) => {
-                return `<code class="text-red-100">${children}</code>`;
+                return `<pre><code class="rounded-lg language-${value.language}">${value.code}</code></pre>`;
             },
         },
     });
