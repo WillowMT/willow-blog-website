@@ -1,23 +1,39 @@
 ---
+import "parallax-js/dist/parallax.min.js";
 ---
 
-<section class="text-center py-32 hero text-black">
-    <h1 class="text-5xl max-w-[90%] md:max-w-[60%] m-auto z-10">
-        Welcome to my Blog!
-    </h1>
-    <p class="mt-6 text-lg max-w-[90%] md:max-w-[60%] m-auto z-10">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Temporibus,
-        accusamus. Iure magnam inventore natus saepe velit minus modi, quae odit
-        quam, qui voluptatibus obcaecati? Ipsa iure repudiandae sed ab iste.
-    </p>
-    <div class="mt-6 flex place-content-center place-items-center z-10">
-        <button class="mx-1 px-6 py-2 bg-blue-800 text-white rounded-lg"
-            >Join Us!</button
+<section class="text-center h-[70vh] text-black relative overflow-hidden">
+    <div
+        class="absolute w-full h-full top-0 left-0 z-20 flex place-content-center flex-col place-items-center"
+    >
+        <h1 class="text-5xl max-w-[90%] md:max-w-[60%] z-10 relative">
+            Welcome to my Blog!
+        </h1>
+        <p class="mt-6 text-lg max-w-[90%] md:max-w-[60%] z-10">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            Temporibus, accusamus. Iure magnam inventore natus saepe velit minus
+            modi, quae odit quam, qui voluptatibus obcaecati? Ipsa iure
+            repudiandae sed ab iste.
+        </p>
+        <div
+            class="mt-6 flex place-content-center place-items-center z-10 relative"
         >
-        <button
-            class="mx-1 px-6 py-2 bg-white border-blue-800 border text-blue-800 rounded-lg"
-            >Browse</button
-        >
+            <button class="mx-1 px-6 py-2 bg-blue-800 text-white rounded-lg"
+                >Join Us!</button
+            >
+            <button
+                class="mx-1 px-6 py-2 bg-white border-blue-800 border text-blue-800 rounded-lg"
+                >Browse</button
+            >
+        </div>
+    </div>
+    <div id="scene" class="absolute -top-10 -left-10 w-[120%] h-[120%] z-10">
+        <img
+            data-depth="0.3"
+            src="/doodle.svg"
+            class="absolute w-full h-full object-cover top-0 object-bottom"
+            alt=""
+        />
     </div>
 </section>
 <style>

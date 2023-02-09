@@ -18,11 +18,12 @@ const posts = await getAllBlogPost();
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <script is:inline src="/parallax.min.js"></script>
         <meta name="generator" content={Astro.generator} />
         <title>Willow's Blog</title>
     </head>
 
-    <body>
+    <body class="bg-[#000045]">
         <Navigation />
         <Hero />
         <section class="text-gray-400 bg-[#000045] body-font overflow-hidden">
@@ -49,5 +50,9 @@ const posts = await getAllBlogPost();
             </div>
         </section>
         <Footer />
+        <script>
+            var scene = document.getElementById("scene");
+            var parallaxInstance = new Parallax(scene);
+        </script>
     </body>
 </html>
