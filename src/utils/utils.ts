@@ -21,15 +21,18 @@ export function sanityPortableText(portabletext: any) {
             image: ({ value }: any) =>
                 `<img src=${urlForImage(value).url().toString()} />`,
             code: ({ value }: any) => {
-                return `<pre><code class="rounded-lg language-${value.language}">${value.code}</code></pre>`;
+                return `<pre><code data-prismjs-copy="copy" class="rounded-lg language-${value.language}">${value.code}</code></pre>`;
             },
         },
         block: {
             h2: ({ value, children }: any) => {
-                return `<h2 class="text-4xl">${children}</h2>`;
+                return `<h2 class="text-4xl mt-8">${children}</h2>`;
+            },
+            h4: ({ value, children }: any) => {
+                return `<h4 class="text-xl mt-8">${children}</h4>`;
             },
             code: ({ value, children }: any) => {
-                return `<pre><code class="rounded-lg language-${value.language}">${value.code}</code></pre>`;
+                return `<pre><code data-prismjs-copy="copy" class="rounded-lg language-${value.language}">${value.code}</code></pre>`;
             },
         },
     });
