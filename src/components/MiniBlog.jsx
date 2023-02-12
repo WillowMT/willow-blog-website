@@ -1,29 +1,30 @@
----
-const { category, date, title, description, trending, slug } = Astro.props;
----
+// ---
+// const { category, date, title, description, trending, slug } = Astro.props;
+// ---
+export default function MiniBlog({category, date, title, description, trending, slug}) {
+    return (
 
-<div class="py-8 flex flex-wrap md:flex-nowrap">
-    <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-        <span class="font-semibold title-font text-white"
+<div className="py-8 flex flex-wrap md:flex-nowrap">
+    <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+        <span className="font-semibold title-font text-white"
             >{
-                category.map((c: any) => (
-                    <span class="mr-2 bg-slate-500 px-2 py-1 rounded-lg font-mono text-center">
+                category.map((c) => (
+                    <span className="mr-2 bg-slate-500 px-2 py-1 rounded-lg font-mono text-center">
                         {c}
                     </span>
                 ))
             }</span
         >
-        <span class="mt-1 text-gray-500 text-sm">{date}</span>
+        <span className="mt-1 text-gray-500 text-sm">{date}</span>
     </div>
-    <div class="md:flex-grow">
+    <div className="md:flex-grow">
         <h2
-            class="text-2xl font-medium text-white title-font mb-2 inline-flex place-items-center"
+            className="text-2xl font-medium text-white title-font mb-2 inline-flex place-items-center"
         >
             {title}
             {
                 trending && (
                     <svg
-                        class="ml-2"
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
                         height="24"
@@ -33,7 +34,7 @@ const { category, date, title, description, trending, slug } = Astro.props;
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-trending-up"
+                        className="feather feather-trending-up ml-2"
                     >
                         <>
                             <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
@@ -43,15 +44,15 @@ const { category, date, title, description, trending, slug } = Astro.props;
                 )
             }
         </h2>
-        <p class="leading-relaxed">
+        <p className="leading-relaxed">
             {description}
         </p>
         <a
             href={`/blog/${slug}`}
-            class="text-indigo-400 inline-flex items-center mt-4 cursor-pointer"
+            className="text-indigo-400 inline-flex items-center mt-4 cursor-pointer"
             >Learn More
             <svg
-                class="w-4 h-4 ml-2"
+                className="w-4 h-4 ml-2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 stroke-width="2"
@@ -65,3 +66,5 @@ const { category, date, title, description, trending, slug } = Astro.props;
         </a>
     </div>
 </div>
+    )
+}

@@ -2,10 +2,10 @@
 // Component Imports
 import Button from "../components/Button.astro";
 import Card from "../components/Card";
-import MiniBlog from "../components/MiniBlog.astro";
+import MiniBlog from "../components/MiniBlog";
 import Navigation from "../components/Navigation.astro";
 import Hero from "../components/Hero.astro";
-import Footer from "../components/Footer.astro";
+import Footer from "../components/Footer";
 import Pagination from "../components/Pagination.astro";
 import { getAllBlogPost } from "../utils/utils";
 import "../style/global.css";
@@ -18,7 +18,6 @@ const posts = await getAllBlogPost();
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <script is:inline src="/parallax.min.js"></script>
         <meta name="generator" content={Astro.generator} />
         <title>Willow's Blog</title>
     </head>
@@ -33,6 +32,7 @@ const posts = await getAllBlogPost();
                         posts.map((post: any) => {
                             return (
                                 <MiniBlog
+                                    client:visible
                                     title={post.title}
                                     date={new Date(
                                         post._createdAt
@@ -49,7 +49,7 @@ const posts = await getAllBlogPost();
                 </div>
             </div>
         </section>
-        <Footer />
+        <Footer client:visible />
         <script>
             // var scene = document.getElementById("scene");
             // var parallaxInstance = new Parallax(scene);
